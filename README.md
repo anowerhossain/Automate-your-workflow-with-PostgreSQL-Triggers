@@ -87,3 +87,37 @@ VALUES ('Laptop', 1200, 10);
 | id  | name     | price | stock_quantity |
 | --- | -------- | ----- | -------------- |
 | 1   | Laptop   | 1200  | 10             | 
+
+```sql
+INSERT INTO sales (product_id, quantity, total_price, salesperson_id)
+VALUES (1, 2, 2400, 3);
+```
+Output of product table after sale of 2 laptops
+
+| id  | name     | price | stock_quantity |
+| --- | -------- | ----- | -------------- |
+| 1   | Laptop   | 1200  | 8              |
+
+Output of commissions table after sale of 2 laptops
+
+| id  | sale_id | salesperson_id | commission_amount |
+| --- | ------- | -------------- | ----------------- |
+| 1   | 1       | 3              | 120               |
+
+Our trigger automatically inserts a new record into this table with the calculated commission (5% of the total sale price).
+
+### Drop the trigger
+- If you want to drop the trigger after_sale_insert on the sales table, you can run
+
+```sql
+DROP TRIGGER after_sale_insert ON sales;
+```
+
+Dropping a trigger does not delete the trigger function. If you also want to drop the trigger function, you can use
+
+```sql
+DROP FUNCTION update_stock_and_calculate_commission();
+```
+
+
+
